@@ -26,10 +26,10 @@ export default class ScrollingArea {
 
 		// Vars
 		this.vars = {
-			value: 0,
-			target: 0,
 			bottom: 0,
 			spring: 0.1,
+			target: 0,
+			value: 0,
 		};
 
 		this.vs = new VirtualScroll();
@@ -39,13 +39,14 @@ export default class ScrollingArea {
 	init() {
 		this.initElements();
 		this.initEvents();
-		this.on.resize();
 	}
 
 	initEvents() {
 		this.vs.on(this.on.scroll);
 		this.raf(this.on.update);
+
 		window.addEventListener('resize', this.on.resize);
+		document.addEventListener('DOMContentLoaded', this.on.resize);
 	}
 
 	initElements() {
@@ -55,30 +56,45 @@ export default class ScrollingArea {
 
 	// Events
 	scroll(event) {
+		this.current = window.pageYOffset + document.documentElement.clientHeight;
+		this.top = this.$child.getBoundingClientRect().top + document.documentElement.scrollTop;
+
 		this.vars.target += event.deltaY * -1;
-		this.vars.target = Math.max(0, Math.min(this.vars.target, this.vars.bottom));
+
+		this.vars.target = Math.max(
+			0,
+			Math.min(
+				this.vars.target,
+				this.containerHeight,
+			),
+		);
 	}
+
 
 	resize() {
-		this.vars.bottom = document.body.getBoundingClientRect().height - window.innerHeight;
+		this.containerWidth = this.options.container.getBoundingClientRect().width;
+		this.containerHeight = this.options.container.getBoundingClientRect().height;
 
-		this.container = this.options.container.getBoundingClientRect().width;
 		this.width = this.$child.getBoundingClientRect().width;
+		this.height = this.$child.getBoundingClientRect().height;
+		this.top = this.$child.getBoundingClientRect().top;
 	}
+
 
 	update() {
 		this.vars.value += (this.vars.target - this.vars.value) * this.vars.spring;
 
-		// this.bottom                    			-> this.vars.value  -> 0
-		// Math.abs(this.width - this.container)    -> ?            	-> 0
-		// 100                            			-> ?            	-> 0
+		// this.containerHeight							-> this.vars.value 	-> 0
+		// Math.abs(this.width - this.containerWidth) 	-> ? 				-> 0
+		// 100 											-> ? 				-> 0
 
-		if (this.width - this.container < 0) {
+		// Overlap
+		if (Math.round(this.width - this.containerWidth) < 0) {
 			return this.raf(this.on.update);
 		}
 
 		const abscissa = Math.round(
-			(this.vars.value * (Math.abs(this.width - this.container))) / this.vars.bottom,
+			(this.vars.value * Math.abs(this.width - this.containerWidth)) / this.containerHeight,
 		);
 
 		this.$child.style.transform = `translate3d(${abscissa * -1}px, 0, 0)`;
