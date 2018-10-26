@@ -7,7 +7,7 @@ import raf from 'raf';
 import VirtualScroll from 'virtual-scroll';
 
 export default class ScrollingArea {
-	constructor(element) {
+	constructor(element, options) {
 		// Bind
 		this.on = {
 			scroll: this.scroll.bind(this),
@@ -16,8 +16,13 @@ export default class ScrollingArea {
 		};
 
 		// Elements
-		this.$el = document.querySelector(element);
+		this.$el = element;
 		[this.$child] = this.$el.children;
+
+		// Options
+		this.options = Object.assign({
+			container: options.container || this.$el,
+		}, options);
 
 		// Vars
 		this.vars = {
@@ -57,20 +62,23 @@ export default class ScrollingArea {
 	resize() {
 		this.vars.bottom = document.body.getBoundingClientRect().height - window.innerHeight;
 
-		this.container = this.$el.getBoundingClientRect().width;
+		this.container = this.options.container.getBoundingClientRect().width;
 		this.width = this.$child.getBoundingClientRect().width;
 	}
 
 	update() {
 		this.vars.value += (this.vars.target - this.vars.value) * this.vars.spring;
 
-		// this.bottom                    -> this.value   -> 0
-		// this.width - this.container    -> ?            -> 0
-		// 100                            -> ?            -> 0
+		// this.bottom                    			-> this.vars.value  -> 0
+		// Math.abs(this.width - this.container)    -> ?            	-> 0
+		// 100                            			-> ?            	-> 0
 
-		//
+		if (this.width - this.container < 0) {
+			return this.raf(this.on.update);
+		}
+
 		const abscissa = Math.round(
-			(this.vars.value * (this.width - this.container)) / this.vars.bottom,
+			(this.vars.value * (Math.abs(this.width - this.container))) / this.vars.bottom,
 		);
 
 		this.$child.style.transform = `translate3d(${abscissa * -1}px, 0, 0)`;
