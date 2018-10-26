@@ -15,4 +15,4 @@ npm install scrolling-area
 
 ### Example
 
-An example is located right [here](https://19h47.github.io/select-and-reset/), see [sources](/example/index.html).
+An example is located right [here](https://19h47.github.io/scrolling-area/), see [sources](/example/index.html).
