@@ -38,7 +38,14 @@ export default class ScrollingArea {
 
 	init() {
 		this.initElements();
-		this.initEvents();
+		this.on.resize();
+
+		// No overlap
+		if (Math.round(this.width - this.containerWidth) < 0) {
+			return false;
+		}
+
+		return this.initEvents();
 	}
 
 	initEvents() {
@@ -46,7 +53,6 @@ export default class ScrollingArea {
 		this.raf(this.on.update);
 
 		window.addEventListener('resize', this.on.resize);
-		document.addEventListener('DOMContentLoaded', this.on.resize);
 	}
 
 	initElements() {
@@ -55,46 +61,37 @@ export default class ScrollingArea {
 	}
 
 	// Events
-	scroll(event) {
-		this.current = window.pageYOffset + document.documentElement.clientHeight;
-		this.top = this.$child.getBoundingClientRect().top + document.documentElement.scrollTop;
+	scroll() {
+		const windowBottom = window.pageYOffset + this.windowArea;
+		const progression = ((windowBottom - this.top) / this.windowArea) * 100;
 
-		this.vars.target += event.deltaY * -1;
-
-		this.vars.target = Math.max(
-			0,
-			Math.min(
-				this.vars.target,
-				this.containerHeight,
-			),
-		);
+		this.vars.target = Math.max(0, Math.min(progression, 100));
 	}
 
 
 	resize() {
-		this.containerWidth = this.options.container.getBoundingClientRect().width;
-		this.containerHeight = this.options.container.getBoundingClientRect().height;
+		// Stock bounding $child rect
+		const $childRect = this.$child.getBoundingClientRect();
 
-		this.width = this.$child.getBoundingClientRect().width;
-		this.height = this.$child.getBoundingClientRect().height;
-		this.top = this.$child.getBoundingClientRect().top;
+		this.width = $childRect.width;
+		this.height = $childRect.height;
+		this.top = $childRect.top + window.pageYOffset - this.$child.clientTop;
+
+		// Container width
+		this.containerWidth = this.options.container.clientWidth;
+
+		this.windowArea = window.innerHeight - this.height;
 	}
 
 
 	update() {
 		this.vars.value += (this.vars.target - this.vars.value) * this.vars.spring;
 
-		// this.containerHeight							-> this.vars.value 	-> 0
+		// 100											-> this.vars.target -> 0
 		// Math.abs(this.width - this.containerWidth) 	-> ? 				-> 0
-		// 100 											-> ? 				-> 0
-
-		// Overlap
-		if (Math.round(this.width - this.containerWidth) < 0) {
-			return this.raf(this.on.update);
-		}
 
 		const abscissa = Math.round(
-			(this.vars.value * Math.abs(this.width - this.containerWidth)) / this.containerHeight,
+			(this.vars.value * Math.abs(this.width - this.containerWidth)) / 100,
 		);
 
 		this.$child.style.transform = `translate3d(${abscissa * -1}px, 0, 0)`;

@@ -21,5 +21,6 @@
 		"window": false,
 		"self": false,
 		"log": false,
+		"IntersectionObserver": false
 	}
 }

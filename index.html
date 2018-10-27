@@ -33,10 +33,24 @@
 				</div>
 			</div>
 			<div class="row">
+				<div class="col-6">
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias numquam repudiandae perspiciatis eius voluptatibus illum, odio quas velit, repellendus, recusandae dolore. Illo explicabo quasi, natus modi commodi nulla! Nobis, placeat.</p>
+					<p>Sit cumque, velit sint suscipit fugit autem saepe, a in odit tempora optio corporis consectetur, nesciunt rem magni possimus est nihil. Labore neque ducimus, porro placeat modi deleniti deserunt fugit!</p>
+					<p>Provident soluta amet reprehenderit, saepe quaerat dolorem vitae vero tempore impedit quibusdam necessitatibus architecto facilis autem eos eaque corporis dolore nulla unde, velit minus, similique nesciunt laudantium beatae. Quisquam, facilis.</p>
+					<p>Quia aperiam recusandae mollitia beatae dolores! Ullam totam quidem dolore quae dicta dolorem inventore repellendus, asperiores unde temporibus ab saepe distinctio, error rem doloremque! Omnis autem impedit necessitatibus nihil quo?</p>
+				</div>
+				<div class="col-6">
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni voluptates eligendi perspiciatis vero officiis placeat, sed quos voluptate beatae rerum unde natus harum cum, perferendis, neque maxime molestias nobis fugit?</p>
+					<p>Corporis veritatis totam maiores cumque ipsa voluptas natus ratione aspernatur, debitis possimus rerum, est. Inventore corporis cumque iste voluptates quo? Aspernatur deserunt, officiis sed reprehenderit temporibus facere nostrum molestiae culpa.</p>
+					<p>Maxime quas magni praesentium laudantium amet natus hic, at dicta eligendi deleniti officiis dignissimos, maiores accusantium id quam architecto modi voluptatibus nesciunt nam facilis officia quo inventore veritatis fuga? Iste!</p>
+					<p>Quis ut id eius illo laborum inventore harum, beatae sit consectetur, blanditiis, error maxime cupiditate aperiam fugiat dolores voluptatum repellendus distinctio. Fuga ullam vero, saepe officia, sed minima reiciendis perspiciatis.</p>
+				</div>
+			</div>
+			<!-- <div class="row">
 				<div class="col-12">
 					<img src="https://via.placeholder.com/1140x350" class="img-fluid my-4" alt="Responsive image">
 				</div>
-			</div>
+			</div> -->
 			<div class="row">
 				<div class="col-12">
 					<div class="js-title my-5">
@@ -53,11 +67,11 @@
 					<p>Ab dolore unde, dolorum veritatis amet a quas expedita velit ipsum, tempore sint animi distinctio vero. Distinctio animi, ipsa ex excepturi sed eius nam! Magnam praesentium necessitatibus inventore ipsum numquam.</p>
 				</div>
 			</div>
-			<div class="row">
+			<!-- <div class="row">
 				<div class="col-12">
 					<img src="https://via.placeholder.com/1140x350" class="img-fluid my-4" alt="Responsive image">
 				</div>
-			</div>
+			</div> -->
 			<div class="row">
 				<div class="col-10 offset-1 m-Y">
 					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi illo, architecto dolorum rerum, eos nostrum. Corporis adipisci voluptatum quam, fugiat magnam repudiandae voluptatem, quo, temporibus ut quos omnis! Id, explicabo?</p>
@@ -112,7 +126,9 @@
 			const titles = document.querySelectorAll('.js-title');
 			titles.forEach((title) => {
 				const scrollingArea = new ScrollingArea.default(title, {});
-				scrollingArea.init();
+				document.addEventListener('DOMContentLoaded', () => {
+					scrollingArea.init();
+				});
 			});
 		</script>
 	</body>
