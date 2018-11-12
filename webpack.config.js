@@ -18,10 +18,10 @@ module.exports = {
 		filename: '[name]/main.js'
 	},
 	devServer: {
-		contentBase: path.resolve(__dirname, 'dist'),
 		compress: true,
-		port: 9000,
+		contentBase: path.resolve(__dirname, 'dist'),
 		inline: true,
+		port: 9000,
 	},
 	resolve: {
 		alias: {
@@ -45,15 +45,14 @@ module.exports = {
 	},
 	plugins: [
 		new CleanWebpackPlugin(
-			['dist', 'example'],
-			{
+			['dist', 'example'], {
 				exclude: ['.git']
 			}
 		),
 		new WebpackNotifier(),
 		new HtmlWebpackPlugin({
-			  filename: path.resolve(__dirname, 'example/index.html' ),
-			  template: path.resolve(__dirname, 'index.html' ),
+			filename: path.resolve(__dirname, 'example/index.html' ),
+			template: path.resolve(__dirname, 'index.html' ),
 			inject: false,
 		})
 	],
