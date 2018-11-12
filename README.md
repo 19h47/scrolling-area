@@ -15,4 +15,4 @@ npm install scrolling-area
 
 ### Example
 
-An example is located right [here](https://19h47.github.io/scrolling-area/), see [sources](/example/index.html).
+An example is located right [here](https://github.com/19h47/scrolling-area/tree/gh-pages), see [sources](https://github.com/19h47/scrolling-area/blob/gh-pages/index.html).
