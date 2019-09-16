@@ -56,7 +56,7 @@ module.exports = {
 			cleanOnceBeforeBuildPatterns: [resolve('dist'), resolve('docs')],
 		}),
 		new HtmlWebpackPlugin({
-			filename: resolve('example/index.html' ),
+			filename: resolve('docs/index.html' ),
 			template: resolve('index.html' ),
 			inject: false,
 		}),
