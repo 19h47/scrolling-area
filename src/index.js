@@ -20,9 +20,7 @@ export default class ScrollingArea {
 		[this.$child] = this.$el.children;
 
 		// Options
-		this.options = Object.assign({
-			container: options.container || this.$el,
-		}, options);
+		this.options = { container: options.container || this.$el, ...options };
 
 		// Vars
 		this.vars = {
@@ -41,7 +39,7 @@ export default class ScrollingArea {
 		this.on.resize();
 
 		// No overlap
-		if (Math.round(this.width - this.containerWidth) < 0) {
+		if (0 > Math.round(this.width - this.containerWidth)) {
 			return false;
 		}
 
