@@ -3,8 +3,8 @@
  * @file index.js
  * @author Jérémy Levron <jeremylevron@19h47.fr> (https://19h47.fr)
  */
-import raf from 'raf';
-import VirtualScroll from 'virtual-scroll';
+
+const getPageYScroll = () => window.pageYOffset || document.documentElement.scrollTop;
 
 export default class ScrollingArea {
 	constructor(element, options) {
@@ -29,9 +29,6 @@ export default class ScrollingArea {
 			target: 0,
 			value: 0,
 		};
-
-		this.vs = new VirtualScroll();
-		this.raf = raf;
 	}
 
 	init() {
@@ -43,13 +40,12 @@ export default class ScrollingArea {
 			return false;
 		}
 
+		requestAnimationFrame(this.on.scroll);
+
 		return this.initEvents();
 	}
 
 	initEvents() {
-		this.vs.on(this.on.scroll);
-		this.raf(this.on.update);
-
 		window.addEventListener('resize', this.on.resize);
 	}
 
@@ -60,10 +56,16 @@ export default class ScrollingArea {
 
 	// Events
 	scroll() {
-		const windowBottom = window.pageYOffset + this.windowArea;
+		const windowBottom = getPageYScroll() + this.windowArea;
 		const progression = ((windowBottom - this.top) / this.windowArea) * 100;
 
+		console.log({ windowBottom, progression });
+
 		this.vars.target = Math.max(0, Math.min(progression, 100));
+
+		this.update();
+
+		requestAnimationFrame(this.on.scroll);
 	}
 
 
@@ -73,7 +75,7 @@ export default class ScrollingArea {
 
 		this.width = $childRect.width;
 		this.height = $childRect.height;
-		this.top = $childRect.top + window.pageYOffset - this.$child.clientTop;
+		this.top = $childRect.top + getPageYScroll() - this.$child.clientTop;
 
 		// Container width
 		this.containerWidth = this.options.container.clientWidth;
@@ -83,6 +85,8 @@ export default class ScrollingArea {
 
 
 	update() {
+		// console.info('update');
+
 		this.vars.value += (this.vars.target - this.vars.value) * this.vars.spring;
 
 		// 100											-> this.vars.target -> 0
@@ -93,7 +97,5 @@ export default class ScrollingArea {
 		);
 
 		this.$child.style.transform = `translate3d(${abscissa * -1}px, 0, 0)`;
-
-		return this.raf(this.on.update);
 	}
 }
