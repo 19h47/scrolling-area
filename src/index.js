@@ -59,7 +59,7 @@ export default class ScrollingArea {
 		const windowBottom = getPageYScroll() + this.windowArea;
 		const progression = ((windowBottom - this.top) / this.windowArea) * 100;
 
-		console.log({ windowBottom, progression });
+		// console.log({ windowBottom, progression });
 
 		this.vars.target = Math.max(0, Math.min(progression, 100));
 
@@ -67,7 +67,6 @@ export default class ScrollingArea {
 
 		requestAnimationFrame(this.on.scroll);
 	}
-
 
 	resize() {
 		// Stock bounding $child rect
@@ -83,7 +82,6 @@ export default class ScrollingArea {
 		this.windowArea = window.innerHeight - this.height;
 	}
 
-
 	update() {
 		// console.info('update');
 
@@ -96,6 +94,6 @@ export default class ScrollingArea {
 			(this.vars.value * Math.abs(this.width - this.containerWidth)) / 100,
 		);
 
-		this.$child.style.transform = `translate3d(${abscissa * -1}px, 0, 0)`;
+		this.$child.style.setProperty('transform', `translate3d(${abscissa * -1}px, 0, 0)`);
 	}
 }

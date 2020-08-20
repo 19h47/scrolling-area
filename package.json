@@ -1,6 +1,6 @@
 {
 	"name": "scrolling-area",
-	"version": "4.0.0",
+	"version": "4.0.1",
 	"description": "Scrolling area",
 	"main": "dist/main.js",
 	"scripts": {
@@ -15,9 +15,7 @@
 	},
 	"keywords": [
 		"scroll",
-		"requestAnimationFrame",
-		"Virtual Scroll",
-		"raf"
+		"requestAnimationFrame"
 	],
 	"author": "Jérémy Levron <jeremylevron@19h47.fr> (http://19h47.fr)",
 	"license": "ISC",
@@ -26,36 +24,37 @@
 	},
 	"homepage": "https://github.com/19h47/scrolling-area#readme",
 	"devDependencies": {
-		"@babel/core": "^7.10.2",
-		"@babel/plugin-transform-runtime": "^7.10.1",
-		"@babel/preset-env": "^7.10.2",
-		"autoprefixer": "^9.8.0",
+		"@babel/core": "^7.11.1",
+		"@babel/plugin-transform-runtime": "^7.11.0",
+		"@babel/preset-env": "^7.11.0",
+		"@babel/runtime": "^7.11.2",
+		"autoprefixer": "^9.8.6",
 		"babel-eslint": "10.1.0",
 		"babel-loader": "^8.1.0",
 		"clean-webpack-plugin": "^3.0.0",
-		"css-loader": "3.5.3",
+		"css-loader": "4.2.1",
 		"cssnano": "^4.1.10",
-		"eslint": "7.2.0",
-		"eslint-config-airbnb-base": "14.1.0",
+		"core-js": "^3.6.5",
+		"eslint": "7.7.0",
+		"eslint-config-airbnb-base": "14.2.0",
 		"eslint-config-standard": "14.1.1",
-		"eslint-import-resolver-webpack": "0.12.1",
+		"eslint-import-resolver-webpack": "0.12.2",
 		"eslint-loader": "4.0.2",
-		"eslint-plugin-import": "^2.20.2",
+		"eslint-plugin-import": "^2.22.0",
 		"eslint-plugin-node": "11.1.0",
 		"eslint-plugin-promise": "^4.2.1",
 		"eslint-plugin-standard": "^4.0.1",
 		"html-webpack-plugin": "^4.3.0",
-		"mini-css-extract-plugin": "0.9.0",
+		"mini-css-extract-plugin": "0.10.0",
 		"postcss-loader": "^3.0.0",
-		"sass-loader": "8.0.2",
-		"webpack": "^4.43.0",
-		"webpack-cli": "^3.3.10",
+		"sass-loader": "9.0.3",
+		"webpack": "^4.44.1",
+		"webpack-cli": "^3.3.12",
 		"webpack-dev-server": "^3.11.0",
-		"webpack-merge": "^4.2.2",
+		"webpack-merge": "^5.1.2",
 		"webpack-notifier": "^1.8.0"
 	},
 	"dependencies": {
-		"@babel/runtime": "^7.10.2",
-		"core-js": "^3.6.5"
+		"@19h47/prettier-config": "^1.0.0"
 	}
 }
